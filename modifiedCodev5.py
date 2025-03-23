@@ -24,6 +24,38 @@ def convert_markdown_to_latex(markdown_text):
     in_html_block = False
     i = 0
     
+    # Extract and convert title
+    title_match = re.match(r'^#\s+(.+)$', lines[0])
+    if title_match:
+        title = title_match.group(1).strip()
+        latex_output += f"\\title{{{title}}}\n"
+        i += 1
+    
+    # Extract and convert author details
+    author_details = []
+    while i < len(lines):
+        line = lines[i].strip()
+        if re.match(r'^#\s+Abstract$', line, re.IGNORECASE):
+            break
+        author_details.append(line)
+        i += 1
+    if author_details:
+        latex_output += "\\author{" + " \\\\ ".join(author_details) + "}\n"
+    
+    # Extract and convert abstract
+    while i < len(lines):
+        line = lines[i].strip()
+        if re.match(r'^#\s+Abstract$', line, re.IGNORECASE):
+            latex_output += "\\begin{abstract}\n"
+            i += 1
+            while i < len(lines) and not re.match(r'^#\s+', lines[i]):
+                latex_output += lines[i].strip() + " "
+                i += 1
+            latex_output += "\n\\end{abstract}\n"
+            break
+        i += 1
+
+    # i = 0  # Reset index to process the rest of the document
     while i < len(lines):
         line = lines[i].strip()
         if not line:
