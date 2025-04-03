@@ -50,18 +50,10 @@ def json_to_latex(json_file, output_file):
                 return f"\\subparagraph{{{clean_text}}}\n\n"
         
         elif node_type == "paragraph":
-           
+            # Check if the paragraph contains an equation (delimited by $$)
             raw_text = "".join(
                 child["raw"] for child in node.get("children", []) if "raw" in child
             ).strip()
-
-            raw_text, math_placeholders = extract_math_expressions(raw_text)
-
-            # Replace placeholders with LaTeX math expressions
-            for placeholder, math_expr in math_placeholders.items():
-                raw_text = raw_text.replace(placeholder, f"${math_expr}$")
-
-             # Check if the paragraph contains an equation (delimited by $$)
             if raw_text.startswith("$$") and raw_text.endswith("$$"):
                 # Extract the equation content (remove the $$ delimiters)
                 equation = raw_text[2:-2].strip()

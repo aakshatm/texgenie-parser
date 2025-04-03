@@ -2,7 +2,7 @@ import mistune
 import json
 
 # Read Markdown text from a file
-with open("testingFilesWithMdFiles/org-mdfiles/4/4.md", "r", encoding="utf-8") as file:
+with open("test.md", "r", encoding="utf-8") as file:
     markdown_text = file.read()
 
 # Create a Markdown parser with AST renderer
