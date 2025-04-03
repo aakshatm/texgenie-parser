@@ -748,7 +748,7 @@ def main():
     # parser.add_argument('--preamble', help='LaTeX preamble file to include')
     
     # args = parser.parse_args()
-    input_file = 'test.md'
+    input_file = 'testingFilesWithMdFiles/org-mdfiles/4/4.md'
     # input_file = 'placeholder.md'
     # Read input file
     try:
