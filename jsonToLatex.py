@@ -69,7 +69,19 @@ def json_to_latex(json_file, output_file):
                 caption = " ".join(
                     child["raw"] for child in node["children"] if child["type"] == "text"
                 ).strip()
+                def clean_caption(caption):
+                    """
+                    Removes the "Figure X:" prefix from a caption, keeping only the actual caption text.
 
+                    Args:
+                        caption (str): The caption string to clean.
+
+                    Returns:
+                        str: The cleaned caption without the "Figure X:" prefix.
+                    """
+                    return re.sub(r"^Figure\s+\d+:\s*", "", caption)
+                
+                caption = clean_caption(caption);
                 # Return the LaTeX figure environment
                 return f"""\\begin{{figure}}[htbp]
 \\centering
